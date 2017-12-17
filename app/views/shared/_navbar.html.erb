@@ -16,8 +16,14 @@
     <!-- Navbar Right Menu -->
     <div class="navbar-custom-menu">
       <ul class="nav navbar-nav">
+        <% if owner_signed_in? %>
+          <li>
+            <a href="/owners/sign_out">
+              <i class="fa fa-sign-out"></i> Sair
+            </a>
+          </li>
+        <% end %>
       </ul>
     </div>
-
   </nav>
 </header>

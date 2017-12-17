@@ -1,0 +1,42 @@
+<div class="login-box">
+  <div class="login-logo">
+    <span>Desafio
+      <b>Indeva</b>
+    </span>
+  </div>
+  <!-- /.login-logo -->
+  <div class="login-box-body">
+    <p class="login-box-msg">Digite suas credenciais</p>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= devise_error_messages! %>
+      <div class="form-group has-feedback">
+        <%= f.text_field :name, class: "form-control", placeholder: "Nome do proprietário", autofocus: true %>
+          <span class="fa fa-user form-control-feedback"></span>
+      </div>
+      <div class="form-group has-feedback">
+        <%= f.email_field :email, class: "form-control", placeholder: "Email" %>
+          <span class="fa fa-envelope form-control-feedback"></span>
+      </div>
+      <div class="form-group has-feedback">
+        <%= f.password_field :password, class: "form-control", placeholder: "Password", autocomplete: "off" %>
+        <span class="fa fa-lock form-control-feedback"></span>
+      </div>
+      <div class="form-group has-feedback">
+        <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Confirme Password", autocomplete: "off" %>
+        <span class="fa fa-lock form-control-feedback"></span>
+      </div>
+      <div class="row">
+        <div class="col-xs-6">
+          <a href="/" class="btn btn-default btn-block btn-flat">Voltar</a>
+        </div>
+        <!-- /.col -->
+        <div class="col-xs-6">
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Cadastrar-se</button>
+        </div>
+        <!-- /.col -->
+      </div>
+      <% end %>
+  </div>
+  <!-- /.login-box-body -->
+</div>
+<!-- /.login-box -->
