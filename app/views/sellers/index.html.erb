@@ -1,0 +1,44 @@
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3 class="box-title">
+      <strong>
+        <%= t(:other, scope: [:activerecord, :models, :seller]) %>
+      </strong>
+    </h3>
+    <div class="pull-right">
+      <%= link_to 'Adicionar novo vendedor', new_seller_path, class: 'btn btn-primary' %>
+    </div>
+  </div>
+  <div class="box-body">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th><%= t(:registration, scope: [:activerecord, :attributes, :seller]) %></th>
+          <th>
+            <%= t(:name, scope: [:activerecord, :attributes, :seller]) %>
+          </th>
+          <th>
+            <%= t(:store, scope: [:activerecord, :attributes, :seller]) %>
+          </th>
+          <th colspan="2"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @sellers.each do |seller| %>
+          <tr>
+            <td> <%= seller.registration %></td>
+            <td> <%= seller.name %> </td>
+            <td> <%= seller.store.name if seller.store.present? %> </td>
+            <td>
+              <%= link_to t(:edit, scope: [:actions]), edit_seller_path(seller) %>
+            </td>
+            <td>
+              <%= link_to t(:destroy, scope: [:actions]), seller, method: :delete, data: { confirm: 'Are you sure?' } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+

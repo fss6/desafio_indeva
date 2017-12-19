@@ -1,0 +1,37 @@
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3 class="box-title">
+     <strong><%= t(:other, scope: [:activerecord, :models, :store]) %></strong>
+    </h3>
+    <div class="pull-right">
+      <%= link_to 'Adicionar nova Loja', new_store_path, class: 'btn btn-primary' %>
+    </div>
+  </div>
+  <div class="box-body">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th><%= t(:name, scope: [:activerecord, :attributes, :store]) %></th>
+          <th><%= t(:owner, scope: [:activerecord, :attributes, :store]) %></th>
+          <th><%= t(:sellers, scope: [:activerecord, :attributes, :store]) %></th>
+          <th colspan="2"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @stores.each do |store| %>
+          <tr>
+            <td><%= store.name %></td>
+            <td><%= store.owner.name %></td>
+            <td><%= store.sellers.count %></td>
+            <td>
+              <%= link_to t(:edit, scope: [:actions]), edit_store_path(store) %>
+            </td>
+            <td>
+              <%= link_to t(:destroy, scope: [:actions]), store, method: :delete, data: { confirm: 'Are you sure?' } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

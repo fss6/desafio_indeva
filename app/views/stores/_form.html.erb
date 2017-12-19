@@ -1,0 +1,46 @@
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3 class="box-title"><%= title %></h3>
+  </div>
+  <!-- form start -->
+  <%= form_with(model: store, local: true, class:"form-horizontal") do |form| %>
+    <div class="box-body">
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label">
+          <%= t(:name, scope: [:activerecord, :attributes, :store]) %>
+        </label>
+        <div class="col-sm-10">
+          <%= form.text_field :name, id: :store_name, class: "form-control", placeholder: "Nome da Loja" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label">
+          <%= t(:owner, scope: [:activerecord, :attributes, :store]) %>
+        </label>
+        <div class="col-sm-10">
+          <%= form.text_field :owner_name, class: "form-control",
+          value: current_owner.name, disabled: true %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label">
+          <%= t(:sellers, scope: [:activerecord, :attributes, :store]) %>
+        </label>
+        <div class="col-sm-10">
+          <select name="store[seller_ids][]" class="form-control" multiple="true" size="10">
+            <%= options_for_select(@store.get_available_sellers, form.object.sellers.pluck(:id)) %>
+          </select>
+          <p class="help-block">Exibe apenas os vendedores que ainda não foram associados a lojas.</p>
+        </div>
+      </div>
+    </div> <!-- /.box-body -->
+    <div class="box-footer">
+      <%= link_to 'Voltar', stores_path, class: "btn btn-default" %>
+      <button type="submit" class="btn btn-info pull-right"><%= action_btn %></button>
+    </div> <!-- /.box-footer -->
+  <% end %>
+</div>
+
