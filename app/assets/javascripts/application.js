@@ -15,5 +15,6 @@
 //= require jquery.turbolinks
 //= require bootstrap.min
 //= require adminlte.min
+//= require toastr_rails
 //= require_tree .
 

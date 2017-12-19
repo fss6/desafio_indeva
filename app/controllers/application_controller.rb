@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include ApplicationHelper::Flash
   protect_from_forgery with: :exception
   before_action :authenticate_owner!
   before_action :devise_permitted_parameters, if: :devise_controller?

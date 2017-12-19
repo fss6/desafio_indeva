@@ -1,0 +1,7 @@
+<% unless flash.empty? %>
+  <% flash.each do |type, msg| %>
+    <script type="text/javascript">
+      toastr['<%= type %>']('<%= msg.html_safe %>');
+    </script>
+  <% end %>
+<% end %>
