@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  goal: one
+  goal_date: 2017-12-18
+  value: 9.99
+  seller_ids: 
+
+two:
+  goal: two
+  goal_date: 2017-12-18
+  value: 9.99
+  seller_ids: 

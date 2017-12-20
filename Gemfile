@@ -35,6 +35,10 @@ gem 'jbuilder', '~> 2.5'
 gem 'toastr_rails', '~> 2.1', '>= 2.1.3'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+# React to Rails
+gem 'webpacker', '~> 3.2'
+# Ransack search
+gem 'ransack', '~> 1.8', '>= 1.8.4'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -6,4 +6,5 @@ Rails.application.routes.draw do
 
   resources :sellers, except: [:show]
   resources :stores, except: [:show]
+  resources :goals, except: [:edit, :update]
 end

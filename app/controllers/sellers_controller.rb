@@ -4,7 +4,9 @@ class SellersController < ApplicationController
   # GET /sellers
   # GET /sellers.json
   def index
-    @sellers = current_owner.sellers
+    @q = current_owner.sellers.ransack(params[:q])
+    # abort params.inspect
+    @sellers = @q.result(distinct: true)
   end
 
   # GET /sellers/new

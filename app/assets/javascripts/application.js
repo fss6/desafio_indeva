@@ -10,11 +10,40 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
+//= require plugins/jquery
 //= require rails-ujs
 //= require jquery.turbolinks
-//= require bootstrap.min
-//= require adminlte.min
+//= require plugins/bootstrap.min
+//= require plugins/adminlte.min
 //= require toastr_rails
+//= require plugins/bootstrap-datepicker.min
+//= require plugins/bootstrap-datepicker.pt-BR
+//= require plugins/jquery.inputmask
+//= require plugins/jquery.inputmask.date.extensions
+//= require plugins/jquery.maskMoney
+//= require plugins/moment.min
+//= require plugins/moment-with-locales.min
 //= require_tree .
+
+document.addEventListener('DOMContentLoaded', () => {
+  //Date picker
+  $('.datepicker').datepicker({
+    autoclose: true,
+    language: 'pt-BR',
+    format: 'dd/mm/yyyy',
+    forceParse: false
+  });
+
+  // Datemask dd/mm/yyyy
+  $('.datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' });
+
+  // MaskMoney R$ 0,00
+  $(".currency").maskMoney({
+    prefix: '', thousands: '.', decimal: ',', affixesStay: false
+  });
+
+});
+
+
+//unmasked
 

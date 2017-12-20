@@ -1,0 +1,57 @@
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3 class="box-title">
+      <strong>
+        <%= t(:other, scope: [:activerecord, :models, :goal]) %>
+      </strong>
+    </h3>
+    <div class="pull-right">
+      <%= link_to 'Adicionar nova Meta', new_goal_path, class: 'btn btn-primary' %>
+    </div>
+  </div>
+  <div class="box-body">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>
+            <%= t(:name, scope: [:activerecord, :attributes, :goal]) %>
+          </th>
+          <th>
+            <%= t(:start_date, scope: [:activerecord, :attributes, :goal]) %>
+          </th>
+          <th>
+            <%= t(:end_date, scope: [:activerecord, :attributes, :goal]) %>
+          </th>
+          <th>
+            <%= t(:total_value, scope: [:activerecord, :attributes, :goal]) %>
+          </th>
+          <th colspan="2"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @goals.each do |goal| %>
+          <tr>
+            <td>
+              <%= goal.name %>
+            </td>
+            <td>
+              <%= goal.start_date %>
+            </td>
+            <td>
+              <%= goal.end_date %>
+            </td>
+            <td>
+              <%= goal.total_value %>
+            </td>
+            <td>
+              <%= link_to t(:show, scope: [:actions]), goal %>
+            </td>
+            <td>
+              <%= link_to t(:destroy, scope: [:actions]), goal, method: :delete, data: { confirm: 'Are you sure?' } %>
+            </td>
+          </tr>
+          <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

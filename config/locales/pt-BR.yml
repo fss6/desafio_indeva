@@ -11,17 +11,6 @@ pt-BR:
     update: Atualizar
     create: Cadastrar
   activerecord:
-    defaults: &defaults
-      id: ID
-      name: Nome
-      kind: Tipo
-      value: Valor
-      email: E-mail
-      registration: Identidade
-      store: Loja
-      seller: Vendedor
-      sellers: Vendedores
-      owner: Proprietário
     models:
       seller:
         one: Vendedor
@@ -32,11 +21,34 @@ pt-BR:
       store_seller:
         one: Loja
         other: Lojas
+      goal:
+        one: Meta
+        other: Metas
     attributes:
+      defaults: &defaults
+        id: ID
+        name: Nome
+        kind: Tipo
+        value: Valor
+        email: E-mail
+        registration: Identidade
+        store: Loja
+        stores: Lojas
+        seller: Vendedor
+        sellers: Vendedores
+        owner: Proprietário
+        owners: Proprietários
+        store_seller: Lojas
+        store_sellers: Lojas
       store:
         <<: *defaults
       seller:
         <<: *defaults
+      goal:
+        <<: *defaults
+        start_date: Data de início
+        end_date: Data de término
+        total_value: Valor total
     errors:
       messages:
         record_invalid: 'A validação falhou: %{errors}'

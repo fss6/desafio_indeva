@@ -14,13 +14,21 @@
       <li class="">
         <a href="/stores">
           <i class="fa fa-building"></i>
-          <span>Lojas</span>
+          <span>
+            <%= t(:other, scope: [:activerecord, :models, :store]) %>
+          </span>
         </a>
       </li>
       <li class="">
         <a href="/sellers">
           <i class="fa fa-users"></i>
-          <span>Venderores</span>
+          <span><%= t(:other, scope: [:activerecord, :models, :seller]) %></span>
+        </a>
+      </li>
+      <li class="">
+        <a href="/goals">
+          <i class="fa fa-line-chart"></i>
+          <span><%= t(:other, scope: [:activerecord, :models, :goal]) %></span>
         </a>
       </li>
     </ul>

@@ -10,10 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171217184200) do
+ActiveRecord::Schema.define(version: 20171219025108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "daily_goals", force: :cascade do |t|
+    t.bigint "goal_id"
+    t.date "goal_date"
+    t.decimal "value"
+    t.json "seller_ids"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["goal_id"], name: "index_daily_goals_on_goal_id"
+  end
+
+  create_table "goals", force: :cascade do |t|
+    t.bigint "store_id"
+    t.string "name"
+    t.date "start_date"
+    t.date "end_date"
+    t.decimal "total_value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["store_id"], name: "index_goals_on_store_id"
+  end
 
   create_table "owners", force: :cascade do |t|
     t.string "name"
@@ -59,6 +80,8 @@ ActiveRecord::Schema.define(version: 20171217184200) do
     t.index ["owner_id"], name: "index_stores_on_owner_id"
   end
 
+  add_foreign_key "daily_goals", "goals"
+  add_foreign_key "goals", "stores"
   add_foreign_key "sellers", "owners"
   add_foreign_key "store_sellers", "sellers"
   add_foreign_key "store_sellers", "stores"
