@@ -22,7 +22,6 @@ export default class Goal extends Component {
       startDate: '',
       endDate: '',
       totalValue: '',
-      dailyGoalTotalValue: '',
       storeId: '',
       stores: [],
       sellers: [],
@@ -87,7 +86,6 @@ export default class Goal extends Component {
   handleStartDate(e) {
     this.setState({ startDate: e.target.value })
     let startDateMoment = moment(e.target.value, 'DD/MM/YYYY');
-    console.log('Date: ' + startDateMoment)
     let endDateMoment = moment(this.state.endDate, 'DD/MM/YYYY');
     this.dailyGoalsVerify(startDateMoment, endDateMoment);
   }
@@ -126,6 +124,11 @@ export default class Goal extends Component {
   submitForm(event) {
     event.preventDefault();
 
+    if (!this.dailyGoalValueVerify()) {
+      toastr.error("A soma dos valores das metas diárias devem ser igual ao valor total da meta.");
+      return 0;
+    }
+
     let { goalName, startDate, endDate, storeId, totalValue } = this.state
     let dailyGoalsAttributes = this.dailyGoals.map( obj => { return {
         value: this.numberFormat(obj.state.value),
@@ -154,6 +157,15 @@ export default class Goal extends Component {
       });
       console.log(error.response.data)
     })
+  }
+
+  dailyGoalValueVerify(){
+    let total = 0;
+    this.dailyGoals.forEach(element => {
+      total += parseFloat(this.numberFormat(element.state.value));
+    });
+    let value = parseFloat(this.numberFormat(this.state.totalValue))
+    return value === total
   }
 
   render(){
@@ -215,7 +227,7 @@ export default class Goal extends Component {
             {this.state.dailyGoals.map((item, k) => (
               <div key={k} className='col-md-4'>
                 <DailyGoal date={item.date} index={k} sellers={this.state.sellers}
-                  callbackAddDailyGoal={ obj => this.addDailyGoal(obj) }/>
+                  callbackAddDailyGoal={ obj => this.addDailyGoal(obj) } />
               </div>
             ))}
           </div>
