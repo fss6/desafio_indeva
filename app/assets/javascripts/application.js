@@ -33,17 +33,4 @@ document.addEventListener('DOMContentLoaded', () => {
     format: 'dd/mm/yyyy',
     forceParse: false
   });
-
-  // Datemask dd/mm/yyyy
-  $('.datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' });
-
-  // MaskMoney R$ 0,00
-  $(".currency").maskMoney({
-    prefix: '', thousands: '.', decimal: ',', affixesStay: false
-  });
-
 });
-
-
-//unmasked
-

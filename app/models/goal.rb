@@ -1,8 +1,9 @@
 class Goal < ApplicationRecord
   has_many :daily_goals, inverse_of: :goal, dependent: :destroy
+  belongs_to :store
   accepts_nested_attributes_for :daily_goals
 
-  validates :name, :start_date, :end_date, :total_value, :daily_goals, presence: true
+  validates :name, :store_id, :start_date, :end_date, :total_value, presence: true
   validate :end_date_great_than_start_date
 
   def goal_date

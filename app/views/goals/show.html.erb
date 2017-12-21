@@ -20,4 +20,13 @@
   <%= @goal.total_value %>
 </p>
 
+<% @goal.daily_goals.each do |daily_goal|%>
+  <% n = daily_goal.sellers.count %>
+  <% daily_goal.sellers.each do |seller|%>
+    <p>Vendedor: <%= seller.name %></p>
+    <p>Valor: R$ <%= daily_goal.value / n  %> </p>
+  <% end %>
+<% end %>
+
+
 <%= link_to 'Back', goals_path %>

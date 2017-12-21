@@ -17,6 +17,9 @@
             <%= t(:name, scope: [:activerecord, :attributes, :goal]) %>
           </th>
           <th>
+            <%= t(:store, scope: [:activerecord, :attributes, :goal]) %>
+          </th>
+          <th>
             <%= t(:start_date, scope: [:activerecord, :attributes, :goal]) %>
           </th>
           <th>
@@ -35,10 +38,13 @@
               <%= goal.name %>
             </td>
             <td>
-              <%= goal.start_date %>
+              <%= goal.store.name %>
             </td>
             <td>
-              <%= goal.end_date %>
+              <%= goal.start_date.strftime("%d/%m/%Y") %>
+            </td>
+            <td>
+              <%= goal.end_date.strftime("%d/%m/%Y") %>
             </td>
             <td>
               <%= goal.total_value %>

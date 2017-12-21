@@ -1,4 +1,5 @@
 class GoalsController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: [:create]
   before_action :set_goal, only: [:show, :destroy]
 
   # GET /goals
@@ -23,8 +24,9 @@ class GoalsController < ApplicationController
     @goal = Goal.new(goal_params)
     respond_to do |format|
       if @goal.save
+        puts @goal.errors.inspect
         format.html { redirect_to @goal, flash: helper_success(:created) }
-        format.json { render :show, status: :created, location: @goal }
+        format.json { render :show, status: :created, location: goals_url }
       else
         format.html { render :new }
         format.json { render json: @goal.errors, status: :unprocessable_entity }
@@ -54,7 +56,7 @@ class GoalsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def goal_params
-      params.require(:goal).permit(:name, :start_date, :end_date, :total_value,
+      params.require(:goal).permit(:name, :store_id, :start_date, :end_date, :total_value,
       daily_goals_attributes: [:value, :goal_date, seller_ids: []])
     end
 end
