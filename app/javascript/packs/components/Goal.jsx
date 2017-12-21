@@ -16,14 +16,14 @@ export default class Goal extends Component {
     this.submitForm = this.submitForm.bind(this);
   }
 
-  initialState() {
+  initialState(stores = []) {
     return {
       goalName: '',
       startDate: '',
       endDate: '',
       totalValue: '',
       storeId: '',
-      stores: [],
+      stores: stores,
       sellers: [],
       dailyGoals: []
     };
@@ -147,7 +147,7 @@ export default class Goal extends Component {
         daily_goals_attributes: dailyGoalsAttributes
       }
     }).then(response => {
-      this.setState(this.initialState())
+      this.setState(this.initialState(this.state.stores))
       toastr.success('Meta cadastrada com sucesso!')
     }).catch(error => {
       this.attributesMap().forEach(element => {

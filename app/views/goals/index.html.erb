@@ -25,9 +25,6 @@
           <th>
             <%= t(:end_date, scope: [:activerecord, :attributes, :goal]) %>
           </th>
-          <th>
-            <%= t(:total_value, scope: [:activerecord, :attributes, :goal]) %>
-          </th>
           <th colspan="2"></th>
         </tr>
       </thead>
@@ -45,9 +42,6 @@
             </td>
             <td>
               <%= goal.end_date.strftime("%d/%m/%Y") %>
-            </td>
-            <td>
-              <%= goal.total_value %>
             </td>
             <td>
               <%= link_to t(:show, scope: [:actions]), goal %>

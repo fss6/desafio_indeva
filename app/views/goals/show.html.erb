@@ -1,32 +1,54 @@
-<p id="notice"><%= notice %></p>
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3 class="box-title"><%= @goal.name %></h3>
+  </div>
+  <div class="box-body">
+    <p>
+      <strong>
+        <%= t(:start_date, scope: [:activerecord, :attributes, :goal]) %>:</strong>
+      <%= @goal.start_date.strftime("%d/%m/%Y") %>
+    </p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @goal.name %>
-</p>
+    <p>
+      <strong>
+        <%= t(:end_date, scope: [:activerecord, :attributes, :goal]) %>
+      </strong>
+      <%= @goal.end_date.strftime("%d/%m/%Y") %>
+    </p>
 
-<p>
-  <strong>Start date:</strong>
-  <%= @goal.start_date %>
-</p>
-
-<p>
-  <strong>End date:</strong>
-  <%= @goal.end_date %>
-</p>
-
-<p>
-  <strong>Total value:</strong>
-  <%= @goal.total_value %>
-</p>
-
-<% @goal.daily_goals.each do |daily_goal|%>
-  <% n = daily_goal.sellers.count %>
-  <% daily_goal.sellers.each do |seller|%>
-    <p>Vendedor: <%= seller.name %></p>
-    <p>Valor: R$ <%= daily_goal.value / n  %> </p>
-  <% end %>
-<% end %>
-
-
-<%= link_to 'Back', goals_path %>
+    <p>
+      <strong>
+        <%= t(:total_value, scope: [:activerecord, :attributes, :goal]) %>:</strong>
+      <%= number_to_currency(@goal.total_value, unit: "R$", separator: ",", delimiter: ".") %>
+    </p>
+    <h3>Metas Diárias:</h3>
+    <% @goal.daily_goals.each do |daily_goal|%>
+      <% n = daily_goal.sellers.count %>
+      <strong></strong>
+      <table class="table table-bordered">
+        <caption>
+          <i class="fa fa-calendar"></i>
+          <%= daily_goal.goal_date.strftime("%d/%m/%Y") %>
+        </caption>
+        <thead>
+          <tr>
+            <th>
+              <%= t(:saller, scope: [:activerecord, :attributes, :goal]) %>
+            </th>
+            <th>
+              <%= t(:value, scope: [:activerecord, :attributes, :daily_goal]) %>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+        <% daily_goal.sellers.each do |seller|%>
+          <tr>
+            <td> <%= seller.name %> </td>
+            <td> <%= number_to_currency((daily_goal.value / n), unit: "R$", separator: ",", delimiter: "") %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+</div>
