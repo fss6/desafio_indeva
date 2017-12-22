@@ -18,7 +18,8 @@ class Goal < ApplicationRecord
 
   def check_interval
     check = Goal.where(start_date: self.start_date..self.end_date)
-      .or(Goal.where(end_date: self.start_date..self.end_date)).empty?
+      .or(Goal.where(end_date: self.start_date..self.end_date))
+      .where(store_id: self.store_id).empty?
     unless check
       errors.add(:start_date, "está em um intervalo de data já cadastrado")
       errors.add(:end_date, "está em um intervalo de data já cadastrado")

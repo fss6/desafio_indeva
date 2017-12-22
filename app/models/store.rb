@@ -2,7 +2,6 @@ class Store < ApplicationRecord
   belongs_to :owner
   has_many :store_sellers, dependent: :restrict_with_error
   has_many :sellers, through: :store_sellers
-  # accepts_nested_attributes_for :store_sellers
 
   validates :name, :owner_id, :sellers, presence: true
 
