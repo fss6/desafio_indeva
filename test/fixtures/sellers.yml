@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  registration: MyString
-  name: MyString
+  registration: 1234
+  name: MyName
 
 two:
-  registration: MyString
-  name: MyString
+  registration: 12345
+  name: YourName
