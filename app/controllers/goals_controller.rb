@@ -24,7 +24,6 @@ class GoalsController < ApplicationController
     @goal = Goal.new(goal_params)
     respond_to do |format|
       if @goal.save
-        puts @goal.errors.inspect
         format.html { redirect_to @goal, flash: helper_success(:created) }
         format.json { render :show, status: :created, location: goals_url }
       else

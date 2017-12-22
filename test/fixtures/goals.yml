@@ -2,12 +2,18 @@
 
 one:
   name: MyString
-  start_date: 2017-12-18
-  end_date: 2017-12-18
+  start_date: 2017-12-12
+  end_date: 2017-12-12
   total_value: 9.99
 
 two:
   name: MyString
-  start_date: 2017-12-18
-  end_date: 2017-12-18
+  start_date: 2017-12-12
+  end_date: 2017-12-14
+  total_value: 9.99
+
+three:
+  name: MyString
+  start_date: 2017-12-17
+  end_date: 2017-12-20
   total_value: 9.99
