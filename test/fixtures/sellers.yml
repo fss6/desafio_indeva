@@ -2,8 +2,8 @@
 
 one:
   registration: 1234
-  name: MyName
+  name: MyNameUnique
 
 two:
   registration: 12345
-  name: YourName
+  name: YourNameUnique

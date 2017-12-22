@@ -24,7 +24,7 @@ class SellerTest < ActiveSupport::TestCase
 
   test "validate registration uniqueness" do
     assert_not Seller.new({
-      name: 'MyName',
+      name: 'MyNameUnique',
       owner_id: Owner.first.id,
       registration: '12345'
     }).save
@@ -35,6 +35,14 @@ class SellerTest < ActiveSupport::TestCase
       name: 'MyName',
       owner_id: Owner.first.id,
       registration: 'B12332'
+    }).save
+  end
+
+  test "save valid seller" do
+    assert Seller.new({
+      name: 'MyName',
+      owner_id: Owner.first.id,
+      registration: '12332'
     }).save
   end
 end
