@@ -25,7 +25,9 @@ export default class Goal extends Component {
       storeId: 0,
       stores: stores,
       sellers: [],
-      dailyGoalDates: []
+      dailyGoalDates: [],
+      selectDisabled: true,
+      selectTextValue: ''
     };
   }
 
@@ -53,7 +55,11 @@ export default class Goal extends Component {
       }
     }
 
-    this.setState({ dailyGoalDates: newDailyGoals })
+    this.setState({
+      dailyGoalDates: newDailyGoals,
+      selectDisabled: newDailyGoals.length === 0,
+      selectTextValue: '',
+     })
   }
 
   getStores(){
@@ -85,7 +91,7 @@ export default class Goal extends Component {
   }
 
   handleStore(e) {
-    this.setState({ storeId: e.target.value })
+    this.setState({ storeId: e.target.value, selectTextValue: e.target.value })
     this.getSellers(e.target.value)
   }
 
@@ -195,19 +201,6 @@ export default class Goal extends Component {
       <form className='form-horizontal' onSubmit={this.submitForm }>
         <div className="box-body">
           <div className="form-group">
-            <label className="col-sm-2 control-label">Loja</label>
-            <div className="col-sm-10">
-              <select name='store_id' className='form-control'
-                onChange={this.handleStore}>
-                <option value=''>Selecionar ...</option>
-                {this.state.stores.map((store, k) => (
-                  <option key={k} value={store.id}>{store.name}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          <div className="form-group">
             <label className="col-sm-2 control-label">Nome</label>
             <div className="col-sm-10">
               <input type='text' className='form-control' name="goalName"
@@ -240,6 +233,20 @@ export default class Goal extends Component {
                 value={this.state.totalValue} onChange={this.handleTotalValue}
                 className='form-control' placeholder='R$ 0,00'/>
             </div>
+          </div>
+        </div>
+
+        <div className="form-group">
+          <label className="col-sm-2 control-label">Loja</label>
+          <div className="col-sm-10">
+            <select name='store_id' className='form-control'
+              value={this.state.selectTextValue}
+              onChange={this.handleStore} disabled={this.state.selectDisabled}>
+              <option value=''>Selecionar ...</option>
+              {this.state.stores.map((store, k) => (
+                <option key={k} value={store.id}>{store.name}</option>
+              ))}
+            </select>
           </div>
         </div>
 
