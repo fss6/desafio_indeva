@@ -24,6 +24,9 @@ pt-BR:
       goal:
         one: Meta
         other: Metas
+      owner:
+        one: Vendedor
+        other: Vendedores
     attributes:
       defaults: &defaults
         id: ID
