@@ -1,6 +1,6 @@
 class DailyGoal < ApplicationRecord
   belongs_to :goal, inverse_of: :daily_goals
-  validates :goal_date, :value, presence: true
+  validates :goal_date, :seller_ids, :value, presence: true
 
   def sellers
     Seller.select('sellers.*')

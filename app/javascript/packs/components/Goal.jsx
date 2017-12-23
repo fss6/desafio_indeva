@@ -131,7 +131,10 @@ export default class Goal extends Component {
       { key: 'start_date', value: 'Data de início' },
       { key: 'end_date', value: 'Data de témino' },
       { key: 'daily_goals', value: 'Metas diárias' },
-      { key: 'total_value', value: 'Valor Total' }
+      { key: 'total_value', value: 'Valor Total' },
+      { key: 'daily_goals.goal_date', value: 'Data das metas diárias' },
+      { key: 'daily_goals.value', value: 'Valor das metas diárias' },
+      { key: 'daily_goals.seller_ids', value: 'Vendedores das metas diárias'}
     ]
   }
 
