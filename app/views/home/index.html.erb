@@ -4,3 +4,57 @@
     <small><%= current_owner.name %></small>
   </h1>
 </section>
+
+<section class="content">
+  <div class="row">
+    <div class="col-md-4 col-sm-6 col-xs-12">
+      <div class="info-box">
+        <span class="info-box-icon bg-aqua">
+          <i class="fa fa-users"></i>
+        </span>
+
+        <div class="info-box-content">
+          <span class="info-box-text">Vendedores</span>
+          <span class="info-box-number"><%= @sellers_count %></span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-4 col-sm-6 col-xs-12">
+      <div class="info-box">
+        <span class="info-box-icon bg-red">
+          <i class="fa fa-building"></i>
+        </span>
+
+        <div class="info-box-content">
+          <span class="info-box-text">Lojas</span>
+          <span class="info-box-number"><%= @stores_count %></span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+
+    <!-- fix for small devices only -->
+    <div class="clearfix visible-sm-block"></div>
+
+    <div class="col-md-4 col-sm-6 col-xs-12">
+      <div class="info-box">
+        <span class="info-box-icon bg-green">
+          <i class="fa fa-line-chart"></i>
+        </span>
+
+        <div class="info-box-content">
+          <span class="info-box-text">Metas</span>
+          <span class="info-box-number"><%= @goals_count %></span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+  </div>
+</section>
