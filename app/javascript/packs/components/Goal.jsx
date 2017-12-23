@@ -6,8 +6,8 @@ export default class Goal extends Component {
 
   constructor(props) {
     super(props);
-    this.state = this.initialState();
     this.dailyGoals = [];
+    this.state = this.initialState();
     this.handleStore = this.handleStore.bind(this);
     this.handleGoalName = this.handleGoalName.bind(this);
     this.handleStartDate = this.handleStartDate.bind(this);
@@ -22,29 +22,38 @@ export default class Goal extends Component {
       startDate: '',
       endDate: '',
       totalValue: '',
-      storeId: '',
+      storeId: 0,
       stores: stores,
       sellers: [],
-      dailyGoals: []
+      dailyGoalDates: []
     };
   }
 
   datesIsValid(startDateMoment, endDateMoment){
-    return startDateMoment.format() <= endDateMoment.format()
-      && startDateMoment.isValid()
-      && endDateMoment.isValid()
+    return startDateMoment.isValid() && endDateMoment.isValid()
+      && startDateMoment.format() <= endDateMoment.format()
+  }
+
+  dateIsFormated(date){
+    return (date.match(/^(0[1-9]|[12][0-9]|3[01])[\- \/.](?:(0[1-9]|1[012])[\- \/.](201)[2-9]{1})$/))
   }
 
   dailyGoalsVerify(startDateMoment, endDateMoment) {
+    let newDailyGoals = [];
+    this.dailyGoals = [];
+
     if (this.datesIsValid(startDateMoment, endDateMoment)) {
       let newDateMoment = startDateMoment;
       let max = endDateMoment.diff(startDateMoment, 'days') + 1
-      this.state.dailyGoals = [];
+
       for (let i = 0; i < max; i++) {
-        this.state.dailyGoals.push({ date: newDateMoment.format('l') })
+        let key = new Date().getTime() + i;
+        newDailyGoals.push({ key: key, date: newDateMoment.format('l') })
         newDateMoment.add(1, 'day').format('l');
       }
     }
+
+    this.setState({ dailyGoalDates: newDailyGoals })
   }
 
   getStores(){
@@ -60,6 +69,7 @@ export default class Goal extends Component {
 
   getSellers(storeId) {
     const self = this;
+    storeId = storeId === '' ? 0 : storeId;
     axios.get('/sellers.json?q%5Bstore_id_eq%5D=' + storeId)
       .then(response => {
         self.setState({ sellers: response.data })
@@ -84,9 +94,18 @@ export default class Goal extends Component {
   }
 
   handleStartDate(e) {
-    this.setState({ startDate: e.target.value })
-    let startDateMoment = moment(e.target.value, 'DD/MM/YYYY');
+    let startDateMoment = moment();
     let endDateMoment = moment(this.state.endDate, 'DD/MM/YYYY');
+    let newStarDate = '';
+
+    if (this.dateIsFormated(e.target.value)) {
+      startDateMoment = moment(e.target.value, 'DD/MM/YYYY');
+      newStarDate = e.target.value
+    } else {
+      endDateMoment = moment().subtract(1, 'day');
+    }
+
+    this.setState({ startDate: newStarDate })
     this.dailyGoalsVerify(startDateMoment, endDateMoment);
   }
 
@@ -124,39 +143,39 @@ export default class Goal extends Component {
   submitForm(event) {
     event.preventDefault();
 
-    if (!this.dailyGoalValueVerify()) {
-      toastr.error("A soma dos valores das metas diárias devem ser igual ao valor total da meta.");
-      return 0;
-    }
-
-    let { goalName, startDate, endDate, storeId, totalValue } = this.state
-    let dailyGoalsAttributes = this.dailyGoals.map( obj => { return {
-        value: this.numberFormat(obj.state.value),
-        goal_date: obj.state.goalDate,
-        seller_ids: obj.state.sellerIds,
-      }
-    })
-
-    axios.post('/goals.json', {
-      goal: {
-        store_id: storeId,
-        name: goalName,
-        start_date: startDate,
-        end_date: endDate,
-        total_value: this.numberFormat(totalValue),
-        daily_goals_attributes: dailyGoalsAttributes
-      }
-    }).then(response => {
-      this.setState(this.initialState(this.state.stores))
-      toastr.success('Meta cadastrada com sucesso!')
-    }).catch(error => {
-      this.attributesMap().forEach(element => {
-        if (error.response.data.hasOwnProperty(element.key)){
-          toastr.error(element.value + " " + error.response.data[element.key])
+    if (this.dailyGoalValueVerify()) {
+      let { goalName, startDate, endDate, storeId, totalValue } = this.state
+      let dailyGoalsAttributes = this.dailyGoals.map( obj => { return {
+          value: this.numberFormat(obj.state.value),
+          goal_date: obj.state.goalDate,
+          seller_ids: obj.state.sellerIds,
         }
       });
-      console.log(error.response.data)
-    })
+
+      axios.post('/goals.json', {
+        goal: {
+          store_id: storeId,
+          name: goalName,
+          start_date: startDate,
+          end_date: endDate,
+          total_value: this.numberFormat(totalValue),
+          daily_goals_attributes: dailyGoalsAttributes
+        }
+      }).then(response => {
+        this.setState(this.initialState(this.state.stores))
+        toastr.success('Meta cadastrada com sucesso!')
+      }).catch(error => {
+        this.attributesMap().forEach(element => {
+          if (error.response.data.hasOwnProperty(element.key)){
+            toastr.error(element.value + " " + error.response.data[element.key])
+          }
+        });
+        console.log(error.response.data)
+      })
+    } else {
+      let msg = "A soma dos valores das metas diárias devem ser igual ao valor total da meta e deferente de zero.";
+      toastr.error(msg);
+    }
   }
 
   dailyGoalValueVerify(){
@@ -224,8 +243,8 @@ export default class Goal extends Component {
         <div className="box-footer">
           <h3> Metas Diárias </h3>
           <div className='row'>
-            {this.state.dailyGoals.map((item, k) => (
-              <div key={k} className='col-md-4'>
+            {this.state.dailyGoalDates.map((item, k) => (
+              <div key={item.key} className='col-md-4'>
                 <DailyGoal date={item.date} index={k} sellers={this.state.sellers}
                   callbackAddDailyGoal={ obj => this.addDailyGoal(obj) } />
               </div>

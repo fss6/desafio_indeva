@@ -41,8 +41,11 @@ export default class DailyGoal extends Component {
           <NumberFormat
             prefix="R$" thousandSeparator="." decimalSeparator=","
             fixedDecimalScale={true} decimalScale={2} allowNegative={false}
-            value={this.state.totalValue} onChange={this.handleValue}
-            className='form-control' placeholder='R$ 0,00' />
+            className='form-control' placeholder='R$ 0,00'
+            value={this.state.value}  onValueChange={(values) => {
+              const { formattedValue, value } = values;
+              this.setState({ value: formattedValue })
+            }} />
         </div>
         <div className="form-group">
           <select name='seller_ids' className="form-control"
